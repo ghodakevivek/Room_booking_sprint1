@@ -2,7 +2,7 @@ package com.example.roombooking.model;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.example.roombooking.entity.Booking;
 
@@ -16,10 +16,10 @@ public class PaymentDTO {
 
 	private int paymentId;
 	
-	@NotEmpty(message="Amount should not be empty")
+	@NotNull(message="Amount should not be null")
 	private int paymentAmount;							//Data members
 	
-	@NotEmpty(message = "Date should not be empty. The expected format is yyyy-MM-dd")
+	@NotNull(message = "Date should not be null. The expected format is yyyy-MM-dd")
 	private LocalDate paymentDate;
 	
 	private Booking booking;

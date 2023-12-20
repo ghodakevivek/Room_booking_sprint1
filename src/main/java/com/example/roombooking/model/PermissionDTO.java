@@ -1,6 +1,6 @@
 package com.example.roombooking.model;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import com.example.roombooking.entity.Admin;
 
@@ -14,7 +14,7 @@ public class PermissionDTO {
 
 	private int permissionId;
 	
-	@NotNull(message="Request status should not be null")
+	@NotEmpty(message="Request status should not be empty")
 	private String requestStatus;								//Data members
 	
 	private Admin admin;

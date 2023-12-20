@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.example.roombooking.entity.User;
 import com.example.roombooking.model.UserDTO;
+import com.example.roombooking.model.LoginDTO;
+import com.example.roombooking.config.LoginMesage;
 
 public interface UserService {
 
@@ -13,4 +15,9 @@ public interface UserService {
 	public UserDTO updateUser(int id, User user);
 	public String deleteUser(int id);
 	public UserDTO getUserById();
+	
+	public String addUser(UserDTO userDTO);
+	public LoginMesage  loginUser(LoginDTO loginDTO);
+	 
+	
 }

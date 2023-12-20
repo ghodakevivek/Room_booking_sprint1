@@ -12,5 +12,6 @@ public interface PaymentService {
 	public PaymentDTO getPaymentById(int id);
 	public PaymentDTO updatePayment(int id, Payment payment);
 	public String deletePayment(int id);
+	public Payment assignBooking(int bookingId, int bookingId2);
 
 }

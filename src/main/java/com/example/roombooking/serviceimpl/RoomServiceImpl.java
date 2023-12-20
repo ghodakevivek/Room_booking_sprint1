@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.roombooking.dao.RoomRepository;
+import com.example.roombooking.dao.UserRepository;
 import com.example.roombooking.entity.Room;
+import com.example.roombooking.entity.User;
 import com.example.roombooking.model.RoomDTO;
 import com.example.roombooking.service.RoomService;
 import com.example.roombooking.util.RoomConverter;
@@ -19,6 +21,9 @@ public class RoomServiceImpl implements RoomService{
 	
 	@Autowired
 	private RoomConverter roomConverter;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	
 	// create room method
@@ -56,6 +61,15 @@ public class RoomServiceImpl implements RoomService{
 	}
 	
 	
+	@Override
+	public Room assignUser(int userId, int roomId) {
+	User user1=userRepository.findByUserId(userId);
+	   Room room = roomRepository.findByRoomId(roomId);
+	   room.setUser(user1);	
+	  return roomRepository.save(room); 
+	}
+	
+	
 	// Update room by id
 	@Override
 	public RoomDTO updateRoom(int id, Room room)
@@ -66,6 +80,7 @@ public class RoomServiceImpl implements RoomService{
 		r.setRoomType(room.getRoomType());
 		r.setRoomPrice(room.getRoomPrice());
 		r.setRoomBeds(room.getRoomBeds());
+		r.setRoomImage(room.getRoomImage());
 		
 		
 		Room rm=roomRepository.save(r);
@@ -81,4 +96,7 @@ public class RoomServiceImpl implements RoomService{
 		roomRepository.deleteById(id);
 		return "Room got deleted successfully";
 	}
+
+
+	
 }

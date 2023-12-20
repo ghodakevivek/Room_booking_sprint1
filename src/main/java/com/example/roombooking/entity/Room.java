@@ -7,8 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,21 +29,25 @@ public class Room {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //Making id as auto generated
 	private int roomId;
 	
-	@NotNull(message="Room number should not be null")   
+	@NotEmpty(message="Room number should not be empty")   
 	private String roomNumber;								//Data members
 	
-	@NotNull(message="Room type should not be null")
+	@NotBlank(message="Room type should not be blank")
 	private String roomType;
 	
-	@NotEmpty(message="Price should not be null")
+	@NotNull(message="Price should not be null")
 	private int roomPrice;
 	
-	@NotEmpty(message="Beds should not be null")
+	@NotNull(message="Beds should not be null")
 	private int roomBeds;
+	
+	private String roomImage;
+	
 	
 	// Room has many to one connection with user
 	@ManyToOne
     @JoinColumn(name = "userId")
+	@JsonIgnoreProperties("room")
     private User user;	
 	
 }

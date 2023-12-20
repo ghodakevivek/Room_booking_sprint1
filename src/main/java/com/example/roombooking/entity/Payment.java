@@ -9,7 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,15 +29,16 @@ public class Payment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //Making id as auto generated
 	private int paymentId;
 	
-	@NotEmpty(message="Amount should not be empty")   
+	@NotNull(message="Amount should not be null")   
 	private int paymentAmount;							//Data members
 	
-	@NotEmpty(message = "Date should not be empty. The expected format is yyyy-MM-dd")
+	@NotNull(message = "Date should not be null. The expected format is yyyy-MM-dd")
 	private LocalDate paymentDate;
 	
 	// Payment has One to one connection with booking
 	@OneToOne
 	@JoinColumn(name = "bookingId")
+	@JsonIgnoreProperties("payment")
     private Booking booking;
 	
 	

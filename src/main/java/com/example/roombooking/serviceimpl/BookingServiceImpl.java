@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.roombooking.dao.BookingRepository;
+import com.example.roombooking.dao.RoomRepository;
 import com.example.roombooking.entity.Booking;
+import com.example.roombooking.entity.Room;
 import com.example.roombooking.model.BookingDTO;
 import com.example.roombooking.service.BookingService;
 import com.example.roombooking.util.BookingConverter;
@@ -21,6 +23,9 @@ public class BookingServiceImpl implements BookingService{
 	
 	@Autowired
 	private BookingConverter bookingConverter;
+	
+	@Autowired
+	private RoomRepository roomRepository;
 	
 	
 	// create booking method
@@ -58,13 +63,23 @@ public class BookingServiceImpl implements BookingService{
 	}
 	
 	
+	@Override
+	public Booking assignRoom(int roomId, int bookingId) {
+	Room room1=roomRepository.findByRoomId(roomId);
+	   Booking booking = bookingRepository.findByBookingId(bookingId);
+	   booking.setRoom(room1);	
+	  return bookingRepository.save(booking); 
+	}
+	
+	
+	
 	// Update booking by id
 	@Override
 	public BookingDTO updateBooking(int id, Booking booking)
 	{
 		Booking b=bookingRepository.findByBookingId(id);
-		
-		b.setBookingDate(booking.getBookingDate());
+		b.setCheckInDate(booking.getCheckInDate());
+		b.setCheckOutDate(booking.getCheckOutDate());
 		b.setBookingDays(booking.getBookingDays());
 		b.setBookingPersons(booking.getBookingPersons());
 		

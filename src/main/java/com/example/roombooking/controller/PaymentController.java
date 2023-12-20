@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,13 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.roombooking.entity.Booking;
 import com.example.roombooking.entity.Payment;
 import com.example.roombooking.model.PaymentDTO;
 import com.example.roombooking.service.PaymentService;
 import com.example.roombooking.util.PaymentConverter;
 
 @RestController
-@RequestMapping("/api/payment")
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PaymentController {
 
 	@Autowired
@@ -33,7 +36,7 @@ public class PaymentController {
 	
 	
 	// Method for creating the payment
-	@PostMapping("/create")
+	@PostMapping("/createPayment")
 	public ResponseEntity<PaymentDTO> createPayment (@Valid @RequestBody PaymentDTO paymentDto)
 	{
 		final Payment payment=paymentConverter.convertToPaymentEntity(paymentDto);
@@ -42,7 +45,7 @@ public class PaymentController {
 	
 	
 	// Method for retrieving all payments
-	@GetMapping("/getAll")
+	@GetMapping("/getAllPayments")
 	public List<PaymentDTO> getAllPayments()
 	{
 		return paymentService.getAllPayments();
@@ -50,15 +53,25 @@ public class PaymentController {
 	
 	
 	// method for retrieving payment using Id
-	@GetMapping("/get/{id}")
+	@GetMapping("/getPaymentById/{id}")
 	public PaymentDTO getPaymentById (@PathVariable int id)
 	{
 		return paymentService.getPaymentById(id);
 	}
 	
 	
+	//assign payment to booking
+	@PostMapping("/payment/assignBooking/{bookingId}/{paymentId}")
+	public ResponseEntity<Payment> assignBooking(@PathVariable("bookingId") int bookingId,
+	@PathVariable("paymentId") int paymentId)
+	{
+		return new ResponseEntity<Payment>(paymentService.assignBooking(bookingId, paymentId),
+		HttpStatus.CREATED);
+	}
+	
+	
 	// Method for updating the payment
-	@PutMapping("/update/{id}")
+	@PutMapping("/updatePayment/{id}")
 	public PaymentDTO updatePayment(@Valid @PathVariable int id, @RequestBody PaymentDTO paymentDto)
 	{
 		final Payment payment=paymentConverter.convertToPaymentEntity(paymentDto);
@@ -67,7 +80,7 @@ public class PaymentController {
 	
 	
 	// Method for deleting the payment using id
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping("deletePayment/{id}")
 	public String deletePayment(@PathVariable int id)
 	{
 		return paymentService.deletePayment(id);

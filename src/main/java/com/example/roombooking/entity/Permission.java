@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +25,7 @@ public class Permission {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //Making id as auto generated
 	private int permissionId;
 	
-	@NotNull(message="Request status should not be null")  
+	@NotEmpty(message="Request status should not be empty")
 	private String requestStatus;								//Data members
 	
 	@ManyToOne

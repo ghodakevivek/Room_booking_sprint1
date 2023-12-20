@@ -35,7 +35,7 @@ public class UserRepositoryTest {
 	        user.setUserCity("Mumbai");
 	        user.setUserMobile("1234567890");
 	        user.setUserEmail("vivek@gmail.com");
-	        user.setUserUserName("vivekGhodake");
+	        user.setUserName("vivekGhodake");
 	        user.setUserPassword("vivek123");
 
 	        User savedUser = userRepository.save(user);
@@ -83,7 +83,7 @@ public class UserRepositoryTest {
 	        user.setUserCity("Mumbai");
 	        user.setUserMobile("1234567890");
 	        user.setUserEmail("vivek@gmail.com");
-	        user.setUserUserName("vivekGhodake");
+	        user.setUserName("vivekGhodake");
 	        user.setUserPassword("vivek123");
 
 	        user = userRepository.save(user);
@@ -101,7 +101,7 @@ public class UserRepositoryTest {
 	        assertEquals("Mumbai", retrievedUser.getUserCity());
 	        assertEquals("1234567890", retrievedUser.getUserMobile());
 	        assertEquals("vivek@gmail.com", retrievedUser.getUserEmail());
-	        assertEquals("vivekGhodake", retrievedUser.getUserUserName());
+	        assertEquals("vivekGhodake", retrievedUser.getUserName());
 	        assertEquals("vivek123", retrievedUser.getUserPassword());
 	    }
 	
@@ -118,7 +118,7 @@ public class UserRepositoryTest {
 	        user.setUserCity("Mumbai");
 	        user.setUserMobile("1234567890");
 	        user.setUserEmail("vivek@gmail.com");
-	        user.setUserUserName("vivekGhodake");
+	        user.setUserName("vivekGhodake");
 	        user.setUserPassword("vivek123");
 
 	        user = userRepository.save(user);
@@ -136,7 +136,7 @@ public class UserRepositoryTest {
 	        updatedUser.setUserCity("Mumbai"); 
 	        updatedUser.setUserMobile("1234567890"); 
 	        updatedUser.setUserEmail("vivek@gmail.com"); 
-	        updatedUser.setUserUserName("vivekGhodake"); 
+	        updatedUser.setUserName("vivekGhodake"); 
 	        updatedUser.setUserPassword("vivek123"); 
 
 	        // Save the updated user
@@ -154,7 +154,7 @@ public class UserRepositoryTest {
 	        assertEquals("Mumbai", retrievedUser.getUserCity());
 	        assertEquals("1234567890", retrievedUser.getUserMobile());
 	        assertEquals("vivek@gmail.com", retrievedUser.getUserEmail());
-	        assertEquals("vivekGhodake", retrievedUser.getUserUserName());
+	        assertEquals("vivekGhodake", retrievedUser.getUserName());
 	        assertEquals("vivek123", retrievedUser.getUserPassword());
 	    }
 
@@ -172,7 +172,7 @@ public class UserRepositoryTest {
 	        user.setUserCity("Mumbai");
 	        user.setUserMobile("1234567890");
 	        user.setUserEmail("vivek@gmail.com");
-	        user.setUserUserName("vivekGhodake");
+	        user.setUserName("vivekGhodake");
 	        user.setUserPassword("vivek123");
 
 	        user = userRepository.save(user);

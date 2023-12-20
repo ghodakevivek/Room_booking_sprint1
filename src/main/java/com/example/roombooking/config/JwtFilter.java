@@ -17,6 +17,7 @@ import io.jsonwebtoken.SignatureException;
 
 public class JwtFilter extends GenericFilterBean{
 
+
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)

@@ -46,9 +46,9 @@ public class RoomRepositoryTest {
 	        roomRepository.deleteAll();
 	    	
 	        // Create and save multiple room entities
-	        Room room1 = new Room(1,"G20", "Delux", 2000, 2, null);
-	        Room room2 = new Room(2,"G20", "Delux", 2000, 2, null);
-	        Room room3 = new Room(3,"G20", "Delux", 2000, 2, null);
+	        Room room1 = new Room(1,"G20", "Delux", 2000, 2, null,null);
+	        Room room2 = new Room(2,"G20", "Delux", 2000, 2, null, null);
+	        Room room3 = new Room(3,"G20", "Delux", 2000, 2, null, null);
 
 	        roomRepository.save(room1);
 	        roomRepository.save(room2);

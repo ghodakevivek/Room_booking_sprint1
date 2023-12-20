@@ -12,5 +12,6 @@ public interface RoomService {
 	public RoomDTO getRoomById(int id);
 	public RoomDTO updateRoom(int id, Room room);
 	public String deleteRoom(int id);
+	public Room assignUser(int userId, int roomId);
 
 }

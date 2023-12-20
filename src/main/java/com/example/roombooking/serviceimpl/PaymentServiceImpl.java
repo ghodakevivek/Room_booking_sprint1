@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.roombooking.dao.BookingRepository;
 import com.example.roombooking.dao.PaymentRepository;
+import com.example.roombooking.entity.Booking;
 import com.example.roombooking.entity.Payment;
 import com.example.roombooking.model.PaymentDTO;
 import com.example.roombooking.service.PaymentService;
@@ -21,6 +23,9 @@ public class PaymentServiceImpl implements PaymentService{
 	
 	@Autowired
 	private PaymentConverter paymentConverter;
+	
+	@Autowired
+	private BookingRepository bookingRepository;
 	
 	
 	// create payment method
@@ -56,6 +61,16 @@ public class PaymentServiceImpl implements PaymentService{
 		return paymentConverter.convertToPaymentDTO(p);
 		
 	}
+	
+	
+	@Override
+	public Payment assignBooking(int bookingId, int paymentId) {
+	Booking booking1=bookingRepository.findByBookingId(bookingId);
+	   Payment payment = paymentRepository.findByPaymentId(paymentId);
+	   payment.setBooking(booking1);	
+	  return paymentRepository.save(payment); 
+	}
+	
 	
 	
 	// Update payment by id

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,8 @@ import com.example.roombooking.service.RoomService;
 import com.example.roombooking.util.RoomConverter;
 
 @RestController
-@RequestMapping("/api/room")
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class RoomController {
 
 	@Autowired
@@ -32,8 +34,10 @@ public class RoomController {
 	private RoomConverter roomConverter;
 	
 	
+	
+	
 	// Method for creating the room
-	@PostMapping("/create")
+	@PostMapping("/createRoom")
 	public ResponseEntity<RoomDTO> createRoom (@Valid @RequestBody RoomDTO roomDto)
 	{
 		final Room room=roomConverter.convertToRoomEntity(roomDto);
@@ -43,7 +47,7 @@ public class RoomController {
 	
 	
 	// Method for retrieving all rooms
-	@GetMapping("/getAll")
+	@GetMapping("/getAllRooms")
 	public List<RoomDTO> getAllRooms()
 	{
 		return roomService.getAllRooms();
@@ -51,15 +55,24 @@ public class RoomController {
 	
 	
 	// method for retrieving room using Id
-	@GetMapping("/get/{id}")
+	@GetMapping("/getRoomById/{id}")
 	public RoomDTO getRoomById (@PathVariable int id)
 	{
 		return roomService.getRoomById(id);
 	}
 	
+	//assign user to room
+	@PostMapping("/room/assignUser/{userId}/{roomId}")
+	public ResponseEntity<Room> assignUser(@PathVariable("userId") int userId,
+	@PathVariable("roomId") int roomId)
+	{
+		return new ResponseEntity<Room>(roomService.assignUser(userId, roomId),
+		HttpStatus.CREATED);
+	}
+	
 	
 	// Method for updating the room
-	@PutMapping("/update/{id}")
+	@PutMapping("/updateRoom/{id}")
 	public RoomDTO updateRoom(@Valid @PathVariable int id, @RequestBody RoomDTO roomDto)
 	{
 		final Room room=roomConverter.convertToRoomEntity(roomDto);
@@ -68,7 +81,7 @@ public class RoomController {
 	
 	
 	// Method for deleting the room using id
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/deleteRoom/{id}")
 	public String deleteRoom(@PathVariable int id)
 	{
 		return roomService.deleteRoom(id);

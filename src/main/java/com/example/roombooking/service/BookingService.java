@@ -12,4 +12,5 @@ public interface BookingService {
 	public BookingDTO getBookingById(int id);
 	public BookingDTO updateBooking(int id, Booking booking);
 	public String deleteBooking(int id);
+	public Booking assignRoom(int roomId, int roomId2);
 }

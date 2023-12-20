@@ -28,7 +28,8 @@ public class BookingRepositoryTest {
     public void testCreateBooking() {
     	 // Create and save an booking
         Booking booking = new Booking();
-        booking.setBookingDate(LocalDate.now());
+        booking.setCheckInDate(LocalDate.now());
+        booking.setCheckOutDate(LocalDate.of(2023, 10, 02));
         booking.setBookingDays(2);
         booking.setBookingPersons(4);
         booking.setRoom(null);
@@ -48,9 +49,9 @@ public class BookingRepositoryTest {
         bookingRepository.deleteAll();
     	
         // Create and save multiple booking entities
-        Booking booking1 = new Booking(1, LocalDate.now( ), 2,4,null );
-        Booking booking2 = new Booking(2, LocalDate.now( ), 2,4,null);
-        Booking booking3 = new Booking(3, LocalDate.now( ), 2,4,null);
+        Booking booking1 = new Booking(1, LocalDate.now( ),LocalDate.of(2023, 10, 02), 2,4,null );
+        Booking booking2 = new Booking(2, LocalDate.now( ),LocalDate.of(2023, 10, 02), 2,4,null);
+        Booking booking3 = new Booking(3, LocalDate.now( ),LocalDate.of(2023, 10, 02), 2,4,null);
 
         bookingRepository.save(booking1);
         bookingRepository.save(booking2);
@@ -72,7 +73,8 @@ public class BookingRepositoryTest {
     public void testGetBookingById() {
         // Create and save an booking
         Booking booking = new Booking();
-        booking.setBookingDate(LocalDate.now());
+        booking.setCheckInDate(LocalDate.now());
+        booking.setCheckOutDate(LocalDate.of(2023, 10, 02));
         booking.setBookingDays(2);
         booking.setBookingPersons(4);
 
@@ -84,7 +86,8 @@ public class BookingRepositoryTest {
         // Assert that the retrieved booking is not null and has the correct ID
         assertNotNull(retrievedBooking);
         assertEquals(booking.getBookingId(), retrievedBooking.getBookingId());
-        assertEquals(LocalDate.now(), retrievedBooking.getBookingDate());
+        assertEquals(LocalDate.now(), retrievedBooking.getCheckInDate());
+        assertEquals(LocalDate.of(2023, 10, 02), retrievedBooking.getCheckOutDate());
         assertEquals(2, retrievedBooking.getBookingDays());
         assertEquals(4, retrievedBooking.getBookingPersons());
     }
@@ -95,7 +98,8 @@ public class BookingRepositoryTest {
     public void testUpdateBookingById() {
         // Create and save an booking
         Booking booking = new Booking();
-        booking.setBookingDate(LocalDate.now());
+        booking.setCheckInDate(LocalDate.now());
+        booking.setCheckOutDate(LocalDate.of(2023, 10, 02));
         booking.setBookingDays(2);
         booking.setBookingPersons(4);
 
@@ -107,7 +111,8 @@ public class BookingRepositoryTest {
         assertNotNull(updatedBooking);
 
         // Modify the booking's attributes
-        updatedBooking.setBookingDate(LocalDate.now()); 
+        updatedBooking.setCheckInDate(LocalDate.now()); 
+        updatedBooking.setCheckOutDate(LocalDate.of(2023, 10, 02));
         updatedBooking.setBookingDays(2); 
         updatedBooking.setBookingPersons(4); 
 
@@ -119,7 +124,8 @@ public class BookingRepositoryTest {
         assertNotNull(retrievedBooking);
 
         // Assert that the attributes have been updated
-        assertEquals(LocalDate.now(), retrievedBooking.getBookingDate());
+        assertEquals(LocalDate.now(), retrievedBooking.getCheckInDate());
+        assertEquals(LocalDate.of(2023, 10, 02), retrievedBooking.getCheckOutDate());
         assertEquals(2, retrievedBooking.getBookingDays());
         assertEquals(4, retrievedBooking.getBookingPersons());
     }
@@ -131,7 +137,8 @@ public class BookingRepositoryTest {
     public void testDeleteBookingById() {
         // Create and save an booking
         Booking booking = new Booking();
-        booking.setBookingDate(LocalDate.now());
+        booking.setCheckInDate(LocalDate.now());
+        booking.setCheckOutDate(LocalDate.of(2023, 10, 02));
         booking.setBookingDays(2);
         booking.setBookingPersons(4);
 

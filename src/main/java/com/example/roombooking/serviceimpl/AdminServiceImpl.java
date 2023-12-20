@@ -1,85 +1,71 @@
 package com.example.roombooking.serviceimpl;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import com.example.roombooking.config.LoginMesage;
 import com.example.roombooking.dao.AdminRepository;
 import com.example.roombooking.entity.Admin;
-import com.example.roombooking.model.AdminDTO;
+import com.example.roombooking.model.ALoginDTO;
 import com.example.roombooking.service.AdminService;
-import com.example.roombooking.util.AdminConverter;
+
 @Service
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
 	private AdminRepository adminRepository;
 	
+	
 	@Autowired
-	private AdminConverter adminConverter;
-	
-	
-	// create admin method
-	@Override
-	public AdminDTO createAdmin(Admin admin)
-	{
-		Admin ad=adminRepository.save(admin);
-		return adminConverter.convertToAdminDTO(ad);
-	}
-	
-	
-	// Retrieve all admin
-	@Override
-	public List<AdminDTO> getAllAdmins(){
-		List<Admin> admin=adminRepository.findAll();
-		
-		//list of type DTO
-		List<AdminDTO> dtoList=new ArrayList<>();
-		for(Admin a: admin)
-		{
-			dtoList.add(adminConverter.convertToAdminDTO(a));
-		}
-		return dtoList;
-	}
-	
-	
-	// Retrieve admin by id
-	@Override
-	public AdminDTO getAdminById(int id) {
-		Admin a=adminRepository.findByAdminId(id);
-		return adminConverter.convertToAdminDTO(a);
-	}
-	
-	
-	// Update adminLogin by id
-	@Override
-	public AdminDTO updateAdmin(int id, Admin admin) {
-		Admin a=adminRepository.findByAdminId(id);
-		
-		a.setAdminEmail(admin.getAdminEmail());
-		a.setAdminUserName(admin.getAdminUserName());
-		a.setAdminPassword(admin.getAdminPassword());
-		
-		
-		Admin ad=adminRepository.save(a);
-		return adminConverter.convertToAdminDTO(ad);
-	}
-	
-	
-	// Delete adminLogin by id
-	@Override
-	public String deleteAdmin(int id) {
-		adminRepository.deleteById(id);
-		return "Admin got deleted successFully";
-	}
+    private PasswordEncoder passwordEncoder;
 
 
-	@Override
-	public AdminDTO getAdminById() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	
+	// Login
+	 @Override
+	    public LoginMesage  loginAdmin(ALoginDTO loginDTO) {
+	        String msg = "";
+	        Admin admin1 = adminRepository.findByAdminEmail(loginDTO.getAdminEmail());
+	        if (admin1 != null) {
+	            String adminPassword = loginDTO.getAdminPassword();
+	            String encodedPassword = admin1.getAdminPassword();
+//	            Boolean isPwdRight = passwordEncoder.matches(adminPassword, encodedPassword);
+	            Boolean isPwdRight = adminPassword.equals(encodedPassword);
+	            System.out.println(isPwdRight);
+	            if (isPwdRight) 
+	            {
+	                Optional<Admin> admin = adminRepository.findByAdminEmailAndAdminPassword
+	                		(loginDTO.getAdminEmail(), encodedPassword);
+//	                System.out.println(adminPassword);
+//	                System.out.println(encodedPassword);
+//	                System.out.println(admin1.getAdminEmail());
+	                
+	                if (admin.isPresent()) {
+	                    return new LoginMesage("Login Success", true);
+	                } 
+	                else 
+	                {
+	                    return new LoginMesage("Login Failed", false);
+	                }
+	            }
+	            else 
+	            {
+	            	 System.out.println(adminPassword);
+		                System.out.println(encodedPassword);
+		                System.out.println(admin1.getAdminEmail());
+	                return new LoginMesage("password Not Match", false);
+	            }
+	        }
+	        else
+	        {
+	            return new LoginMesage("Email not exits", false);
+	        }
+	    }
 
+
+
+	
 }

@@ -17,21 +17,21 @@ public class UserDTO {
 
 	private int userId;
 	
-	@NotNull(message="First name should not be null")
+	@NotEmpty(message="First name should not be empty")
 	private String userFirstName;							//Data members
 	
-	@NotNull(message="Last name should not be null")
+	@NotEmpty(message="Last name should not be empty")
 	private String userLastName;
 	
 	@NotNull(message="Aadhar should not be null")
 	@Size(min=12, max=12)
 	private String userAadhar;
 	
-	@Min(value = 18, message = "Age must not be greater than 18")
+	@Min(value = 18, message = "Age must be greater than 18")
 	@Max(value = 100, message = "Age must not be greater than 100")
 	private int userAge;
 	
-	@NotNull(message="City should not be null")
+	@NotEmpty(message="City should not be empty")
 	private String userCity;
 	
 	@NotNull(message="Mobile should not be null")
@@ -42,7 +42,7 @@ public class UserDTO {
 	private String userEmail;
 	
 	@NotEmpty(message = "Username should not be empty")
-	private String userUserName;
+	private String userName;
 	
 	@NotEmpty(message = "Password should not be empty")
 	private String userPassword;
